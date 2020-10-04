@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Miniconda
+      - name: Set up miniconda
         uses: conda-incubator/setup-miniconda@v1
         with:
           # Do everything inside the base env
@@ -22,18 +22,21 @@ jobs:
           conda-build-version: "3.20"
           channels: "pdiakumis,conda-forge,bioconda"
 
-      - name: Conda info
+      - name: Build conda package
         shell: bash -l {0}
-        run: conda info
+        run: mamba build --R 4.0 conda/gpgr
+
+      - name: Install conda packages
+        shell: bash -l {0}
+        run: mamba create -n pkgdown_gpgr --use-local r-gpgr r-pkgdown pandoc
+
+      - name: Test
+        shell: bash -l {0}
+        run: |
+            conda activate pkgdown_gpgr
+            Rscript -e "packageVersion('gpgr')"
+            Rscript -e "packageVersion('pkgdown')"
 
       - name: Conda list
         shell: bash -l {0}
         run: conda list
-
-      - name: Conda list base
-        shell: bash -l {0}
-        run: conda list -n base
-
-      - name: Conda info env
-        shell: bash -l {0}
-        run: conda info -e
