@@ -1,0 +1,32 @@
+name: conda-pkgdown
+
+on: [push]
+
+jobs:
+  build-conda-deploy-pkgdown:
+    name: Build conda package and deploy pkgdown website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v1
+        with:
+          auto-update-conda: true
+          mamba-version: "*"
+          conda-build-version: "3.20"
+          channels: "pdiakumis,conda-forge,bioconda"
+
+      - name: Conda info
+        shell: bash -l {0}
+        run: conda info
+
+      - name: Conda list
+        shell: bash -l {0}
+        run: conda list
+
+      - name: Conda info env
+        shell: bash -l {0}
+        run: conda info -e
