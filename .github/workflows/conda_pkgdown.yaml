@@ -14,7 +14,10 @@ jobs:
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v1
         with:
+          # Do everything inside the base env
           auto-update-conda: true
+          auto-activate-base: true
+          activate-environment: ""
           mamba-version: "*"
           conda-build-version: "3.20"
           channels: "pdiakumis,conda-forge,bioconda"
@@ -26,6 +29,10 @@ jobs:
       - name: Conda list
         shell: bash -l {0}
         run: conda list
+
+      - name: Conda list base
+        shell: bash -l {0}
+        run: conda list -n base
 
       - name: Conda info env
         shell: bash -l {0}
