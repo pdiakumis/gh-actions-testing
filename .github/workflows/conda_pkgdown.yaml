@@ -34,9 +34,12 @@ jobs:
         shell: bash -l {0}
         run: |
             conda activate pkgdown_gpgr
+            Rscript -e "capabilities()"
             Rscript -e "packageVersion('gpgr')"
             Rscript -e "packageVersion('pkgdown')"
+            Rscript -e "install.packages('Cairo', repos = c(CRAN = 'https://cran.ms.unimelb.edu.au'))"
+            Rscript -e "packageVersion('Cairo')"
 
       - name: Conda list
         shell: bash -l {0}
-        run: conda list
+        run: conda list -n pkgdown_gpgr
