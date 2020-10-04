@@ -22,22 +22,21 @@ jobs:
           conda-build-version: "3.20"
           channels: "pdiakumis,conda-forge,bioconda"
 
-      - name: Build conda package
-        shell: bash -l {0}
-        run: mamba build --R 4.0 conda/gpgr
+          #      - name: Build conda package
+          #        shell: bash -l {0}
+          #        run: mamba build --R 4.0 conda/gpgr
 
       - name: Install conda packages
         shell: bash -l {0}
-        run: mamba create -n pkgdown_gpgr --use-local r-gpgr r-pkgdown pandoc
+        run: mamba create -n pkgdown_gpgr r-pkgdown pandoc r-cairo
+        #run: mamba create -n pkgdown_gpgr --use-local r-gpgr r-pkgdown pandoc r-cairo
 
       - name: Test
         shell: bash -l {0}
         run: |
             conda activate pkgdown_gpgr
             Rscript -e "capabilities()"
-            Rscript -e "packageVersion('gpgr')"
             Rscript -e "packageVersion('pkgdown')"
-            Rscript -e "install.packages('Cairo', repos = c(CRAN = 'https://cran.ms.unimelb.edu.au'))"
             Rscript -e "packageVersion('Cairo')"
 
       - name: Conda list
