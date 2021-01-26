@@ -1,9 +1,9 @@
-# Welcome to the CPG!
+# Welcome to the CPG
 
 This document describes the commonly used technologies at the Centre, together
 with some hints on how to use various tools.
 
-- [Welcome to the CPG!](#welcome-to-the-cpg)
+- [Welcome to the CPG](#welcome-to-the-cpg)
   - [GitHub](#github)
     - [Code reviews](#code-reviews)
   - [Google Cloud Platform](#google-cloud-platform)
@@ -163,7 +163,8 @@ channel](https://anaconda.org/cpg):
 2. Run the following to create a conda environment called `hail`:
 
    ```bash
-   conda create --name hail -c cpg -c bioconda -c conda-forge hail google-cloud-sdk google-api-core google-cloud-storage
+   conda create --name hail -c cpg -c bioconda -c conda-forge \
+     hail google-cloud-sdk google-api-core google-cloud-storage
 
    conda activate hail
    ```
