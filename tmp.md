@@ -3,7 +3,15 @@
 This document describes the commonly used technologies at the Centre, together
 with some hints on how to use various tools.
 
-# GitHub
+- [Welcome to the CPG!](#welcome-to-the-cpg)
+  - [GitHub](#github)
+    - [Code reviews](#code-reviews)
+  - [Google Cloud Platform](#google-cloud-platform)
+  - [Hail](#hail)
+  - [Hail Batch](#hail-batch)
+  - [Terra / Cromwell](#terra--cromwell)
+
+## GitHub
 
 All source code is managed in GitHub repositories in the [populationgenomics
 organization](https://github.com/populationgenomics). Please let your manager
@@ -23,14 +31,14 @@ It's also a good idea to send any notifications for the populationgenomics
 organization to your work email address. This can be configured in your GitHub
 settings under Notifications.
 
-## Code reviews
+### Code reviews
 
 There are many advantages of having code reviews:
 
--   Catch bugs and bad design decisions earlier.
--   Improve the overall readability and maintainability of the code.
--   Spread knowledge about the code base within the team.
--   Learn from others by reading their code.
+- Catch bugs and bad design decisions earlier.
+- Improve the overall readability and maintainability of the code.
+- Spread knowledge about the code base within the team.
+- Learn from others by reading their code.
 
 If you're not used to code reviews, don't be intimidated. After a short period
 of time, they'll feel very natural. It's one of the best ways to truly work
@@ -38,29 +46,29 @@ together on a shared code base.
 
 For code reviews to work well, it's helpful to follow a few general guidelines:
 
--   Don't interpret review comments as criticism of your code. Instead,
-    consider them an opportunity to improve the code and learn new techniques.
--   It's really important that reviews are done in a timely fashion. Try to
-    respond to review requests within 24 hours. If you don't hear back from a
-    reviewer, feel free to "ping" them on Slack.
--   In order for people to respond quickly to reviews, individual pull requests
-    (PRs) need to be small. Don't send thousands of lines of code for review:
-    that's not fun for the reviewer and it's unlikely you'll get good review
-    feedback. Instead, send small PRs frequently, so the reviewer can really
-    focus on the change.
--   If a reviewer doesn't understand the code or has a question about it, it's
-    likely that a future maintainer will have a similar problem. Therefore
-    don't just respond to the question using the review comment UI, but think
-    about how to make the code more readable. Should there be a clarifying code
-    comment, could you change the structure of the code, or rename a function
-    or variable to avoid the confusion?
--   Code reviews are very different from pair programming. It's an asynchronous
-    activity. Make sure to prepare your PR in a way that preempts any questions
-    you can anticipate, to speed up the overall process.
--   It's normal that there might be a few rounds of back-and-forth. However, a
-    review should always be a technically focussed conversation, with the
-    common goal to improve the quality of the code. As a reviewer, make
-    concrete suggestions on how to improve the code.
+- Don't interpret review comments as criticism of your code. Instead,
+  consider them an opportunity to improve the code and learn new techniques.
+- It's really important that reviews are done in a timely fashion. Try to
+  respond to review requests within 24 hours. If you don't hear back from a
+  reviewer, feel free to "ping" them on Slack.
+- In order for people to respond quickly to reviews, individual pull requests
+  (PRs) need to be small. Don't send thousands of lines of code for review:
+  that's not fun for the reviewer and it's unlikely you'll get good review
+  feedback. Instead, send small PRs frequently, so the reviewer can really
+  focus on the change.
+- If a reviewer doesn't understand the code or has a question about it, it's
+  likely that a future maintainer will have a similar problem. Therefore
+  don't just respond to the question using the review comment UI, but think
+  about how to make the code more readable. Should there be a clarifying code
+  comment, could you change the structure of the code, or rename a function
+  or variable to avoid the confusion?
+- Code reviews are very different from pair programming. It's an asynchronous
+  activity. Make sure to prepare your PR in a way that preempts any questions
+  you can anticipate, to speed up the overall process.
+- It's normal that there might be a few rounds of back-and-forth. However, a
+  review should always be a technically focussed conversation, with the
+  common goal to improve the quality of the code. As a reviewer, make
+  concrete suggestions on how to improve the code.
 
 It's okay to spend a lot of time on reviews! This is a big part of your
 responsibilities and we really care about high code quality.
@@ -86,7 +94,7 @@ We set up repositories in a way that requires at least one code review before
 you can merge a pull request into the `main` branch. You can freely commit to
 any development branches.
 
-# Google Cloud Platform
+## Google Cloud Platform
 
 To make sure we don't run into scalability limits with increasing dataset
 sizes, we run all analyses at the Centre in a cloud computing environment. For
@@ -95,14 +103,14 @@ Hail so far work best on GCP.
 
 To install the Google Cloud SDK:
 
-1.  Install
-    [Miniconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
-2.  Run the following to create a conda environment called `gcp`:
+1. Install
+   [Miniconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+2. Run the following to create a conda environment called `gcp`:
 
-    ```bash
-    conda create --name gcp -c conda-forge google-cloud-sdk
-    conda activate gcp
-    ```
+   ```bash
+   conda create --name gcp -c conda-forge google-cloud-sdk
+   conda activate gcp
+   ```
 
 If you're new to GCP, read the excellent [How to
 Cloud](https://github.com/danking/hail-cloud-docs/blob/master/how-to-cloud.md)
@@ -111,7 +119,7 @@ guide first.
 For better isolation and cost accounting, we create separate GCP projects for
 each effort within the Centre. For example, the TOB-WGS effort would have a
 dedicated GCP project called `tob-wgs`. It's important to keep in mind that the
-GCP project *name* can be distinct from the project *ID*. In general, when you
+GCP project _name_ can be distinct from the project _ID_. In general, when you
 specify projects, you'll have to use the project ID (e.g.
 `gcloud config set project <project-id>`).
 
@@ -140,7 +148,7 @@ risk of data breaches. Keep in mind that any non-public genomic data is highly
 sensitive. Keeping the data in the cloud also avoids incurring any egress costs
 that apply when downloading the data.
 
-# Hail
+## Hail
 
 [Hail](https://hail.is) is an amazing open source library and platform for
 genomic data analysis, developed at the Broad Institute. Given its proven
@@ -150,14 +158,15 @@ Centre's main analysis platform.
 To install Hail, use the package in [CPG's conda
 channel](https://anaconda.org/cpg):
 
-1.  Install
-    [Miniconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
-2.  Run the following to create a conda environment called `hail`:
-    ```bash
-    conda create --name hail -c cpg -c bioconda -c conda-forge hail google-cloud-sdk google-api-core google-cloud-storage
+1. Install
+   [Miniconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+2. Run the following to create a conda environment called `hail`:
 
-    conda activate hail
-    ```
+   ```bash
+   conda create --name hail -c cpg -c bioconda -c conda-forge hail google-cloud-sdk google-api-core google-cloud-storage
+
+   conda activate hail
+   ```
 
 The Hail [documentation](https://hail.is/docs/0.2/index.html) is a good
 starting point. In particular, the
@@ -195,7 +204,7 @@ If you're interested in the Hail internals, this developer focussed
 [overview](https://github.com/hail-is/hail/blob/main/dev-docs/hail-overview.md)
 is very helpful.
 
-# Hail Batch
+## Hail Batch
 
 [Hail Batch](https://hail.is/docs/batch/service.html) is a generic job
 scheduling system: you describe a workflow using a Python API as a series of
@@ -203,7 +212,7 @@ jobs consisting of Docker container commands, input and output files, and job
 interdependencies. Hail Batch then runs that workflow in GCP using a
 dynamically scaled pool of workers.
 
-In the near future, Hail Batch will integrate nicely with the Hail *Query*
+In the near future, Hail Batch will integrate nicely with the Hail _Query_
 component, which means that you won't need to run a Dataproc cluster anymore.
 Instead, you'll be able to run scalable Hail analyses directly from Batch,
 using a shared pool of worker VMs that also process your other jobs.
@@ -251,7 +260,7 @@ program (which defines the batch) locally. However, since that's problematic in
 terms of reproducibility, we're currently looking into ways to run the driver
 itself on Hail Batch, too.
 
-# Terra / Cromwell
+## Terra / Cromwell
 
 While Hail Batch is a very powerful way to define workflows especially when
 using Hail Query functionality, a lot of existing genomic pipelines (like
