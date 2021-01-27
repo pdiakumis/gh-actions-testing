@@ -1,4 +1,4 @@
-name: reviewdog
+name: markdownlint
 on: [pull_request]
 
 jobs:
@@ -9,8 +9,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: markdownlint
+      - name: md-lint
         uses: reviewdog/action-markdownlint@v0.1
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             reporter: github-pr-review
+      - name: md-link-check
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+            use-verbose-mode: 'yes'
