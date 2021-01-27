@@ -117,9 +117,10 @@ specify projects, you'll have to use the project ID (e.g.
 
 Permissions to projects and resources like Google Cloud Storage (GCS) buckets
 are managed using Google Groups that are linked to IAM permission roles. Take a
-look at our [storage
-policies](https://github.com/populationgenomics/storage-policies) for a much
-more detailed description.
+look at our
+<!-- markdown-link-check-disable-next-line -->
+[storage policies](https://github.com/populationgenomics/storage-policies)
+for a much more detailed description.
 
 It's very important to avoid [network egress
 traffic](https://cloud.google.com/vpc/network-pricing#internet_egress) whenever
