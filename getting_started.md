@@ -148,7 +148,7 @@ specify projects, you'll have to use the project ID (e.g.
 
 Permissions to projects and resources like Google Cloud Storage (GCS) buckets
 are managed using Google Groups that are linked to IAM permission roles. Take a
-look at our [storage policies](storage_policies) for a much more detailed
+look at our for a much more detailed
 description.
 
 It's very important to avoid
