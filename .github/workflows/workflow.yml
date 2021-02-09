@@ -23,7 +23,7 @@ jobs:
         uses: creyD/prettier_action@v3.3
         with:
             prettier_options: '--prose-wrap always --write **/*.md'
-            only_changed: true
+            only_changed: false
             same_commit: false
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
