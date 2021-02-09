@@ -14,11 +14,6 @@ jobs:
             # This is important to fetch the changes to the previous commit
             fetch-depth: 0
 
-      - name: md-link-check
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-            use-verbose-mode: 'yes'
-
       - name: prettier
         uses: creyD/prettier_action@v3.3
         with:
@@ -27,3 +22,8 @@ jobs:
             same_commit: false
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: md-link-check
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+            use-quiet-mode: 'yes'
