@@ -1,29 +1,14 @@
-name: Prettier Markdown
-on: [pull_request]
+name: Test1
 
+on:
+  push:
+    branches:
+      - main
 jobs:
-  prettier_markdown:
-    name: prettier_markdown
+  build:
+    name: Inspect context
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-            # Make sure the actual branch is checked out when running on pull requests
-            ref: ${{ github.head_ref }}
-            # This is important to fetch the changes to the previous commit
-            fetch-depth: 0
-
-      - name: prettier
-        uses: creyD/prettier_action@v3.3
-        with:
-            prettier_options: '--prose-wrap always --write **/*.md'
-            only_changed: false
-            same_commit: false
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: md-link-check
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-            use-quiet-mode: 'yes'
+      - name: Inspect context
+        run: |
+          echo This workflow on ${{ github.repository }} was started by ${{ github.actor }}
