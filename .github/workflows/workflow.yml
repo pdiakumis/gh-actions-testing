@@ -1,11 +1,12 @@
 name: Test1
 
 on:
-  workflow_dispatch
+  schedule:
+  - cron: "0 1 * * *"
 
 jobs:
   dyff:
-    name: yaml diff
+    name: yaml dyff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
