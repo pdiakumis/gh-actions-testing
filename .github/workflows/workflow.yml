@@ -1,14 +1,18 @@
 name: Test1
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch
+
 jobs:
-  build:
-    name: Inspect context
+  dyff:
+    name: yaml diff
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect context
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install tools
         run: |
-          echo This workflow on ${{ github.repository }} was started by ${{ github.actor }}
+          sudo apt-get install -y jq 
+          sudo snap install -y dyff
+          jq --version
+          dyff version
