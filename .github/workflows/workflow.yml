@@ -14,12 +14,29 @@ jobs:
         run: |
           sudo snap install dyff
           dyff version
-      - name: Download yaml
+      - name: Download and diff yaml
         run: |
           PUBY="https://ica.illumina.com/ica/api/swagger/openapi_public.yaml"
           TMPY="openapi_tmp.yaml"
           CURY="openapi_current.yaml"
 
           curl -o ${TMPY} ${PUBY}
-          { dyff between --omit-header --set-exit-code ${TMPY} ${CURY} && echo "SAME"; } || { cp ${TMPY} ${CURY} && echo "COPIED"; }
+          if dyff between --omit-header --set-exit-code ${TMPY} ${CURY}; then 
+              echo "diff=false" >> $GITHUB_ENV
+          else
+              echo "diff=true" >> $GITHUB_ENV
+          fi
 
+      - name: Debug changes
+        run: |
+          echo "${{ env.diff }}"
+
+      - name: Commit if diff
+        run: |
+          cp ${TMPY} ${CURY}
+          git status
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Update openapi yaml since diffs detected"
+          git push
