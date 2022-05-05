@@ -12,7 +12,12 @@ jobs:
         uses: actions/checkout@v3
       - name: Install tools
         run: |
-          sudo apt-get install -y jq 
           sudo snap install dyff
-          jq --version
           dyff version
+      - name: Download yaml
+        run: |
+          YML="https://ica.illumina.com/ica/api/swagger/openapi_public.yaml"
+          TMP_YML="/tmp/openapi_tmp.yaml"
+          curl -o ${TMP_YML} ${YML}
+          dyff between --omit-header --set-exit-code ${TMP_YML} openapi_current.yaml
+          echo $?
