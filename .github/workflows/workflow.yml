@@ -16,8 +16,10 @@ jobs:
           dyff version
       - name: Download yaml
         run: |
-          YML="https://ica.illumina.com/ica/api/swagger/openapi_public.yaml"
-          TMP_YML="openapi_tmp.yaml"
-          curl -o ${TMP_YML} ${YML}
-          dyff between --omit-header --set-exit-code ${TMP_YML} openapi_current.yaml
-          echo $?
+          PUBY="https://ica.illumina.com/ica/api/swagger/openapi_public.yaml"
+          TMPY="openapi_tmp.yaml"
+          CURY="openapi_current.yaml"
+
+          curl -o ${TMPY} ${PUBY}
+          { dyff between --omit-header --set-exit-code ${TMPY} ${CURY} && echo "SAME"; } || { cp ${TMPY} ${CURY} && echo "COPIED"; }
+
