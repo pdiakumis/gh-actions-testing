@@ -30,7 +30,7 @@ jobs:
           echo "${{ env.diff }}"
           mv ${TMPY} ${CURY}
       - name: Commit if changes
-        if: env.diff == "true"
+        if: env.diff == 'true'
         run: |
           git status
           git config --local user.email "actions@github.com"
