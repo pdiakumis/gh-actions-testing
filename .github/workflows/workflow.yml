@@ -27,12 +27,7 @@ jobs:
               echo "diff=true" >> $GITHUB_ENV
           fi
 
-      - name: Debug changes
-        run: |
           echo "${{ env.diff }}"
-
-      - name: Commit if diff
-        run: |
           cp ${TMPY} ${CURY}
           git status
           git config --local user.email "actions@github.com"
