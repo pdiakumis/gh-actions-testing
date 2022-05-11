@@ -3,9 +3,9 @@
 
 ## Properties
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **character** |  | 
-**name** | **character** |  | 
-**description** | **character** |  | 
+|------------ | ------------- | ------------- | -------------|
+| **id** | **character** |  | 
+| **name** | **character** |  | 
+| **description** | **character** |  | 
 
 
