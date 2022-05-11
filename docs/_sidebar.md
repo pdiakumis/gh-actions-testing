@@ -1,8 +1,8 @@
 <!-- docs/_sidebar.md -->
 
 
-* [HOME](./)
+* [HOME](/)
 
-* [Docs](./index)
-  * [Workgroup](./Workgroup)
+* [Docs](index.md)
+  * [Workgroup](Workgroup.md)
 
