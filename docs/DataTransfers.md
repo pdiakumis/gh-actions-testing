@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::DataTransfers
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**dataTransfers** | [**array[DataTransfer]**](DataTransfer.md) |  | 
 
 

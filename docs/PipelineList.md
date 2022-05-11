@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::PipelineList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[Pipeline]**](Pipeline.md) |  | 
 
 

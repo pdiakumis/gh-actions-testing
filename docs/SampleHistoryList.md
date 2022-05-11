@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::SampleHistoryList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[SampleHistory]**](SampleHistory.md) |  | 
 
 

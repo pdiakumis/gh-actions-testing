@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::DataList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[Data]**](Data.md) |  | 
 
 

@@ -1,10 +1,11 @@
-# icar::WorkgroupList
+# icar::ProjectTag
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**technicalTags** | **array[character]** |  | 
+**userTags** | **array[character]** |  | 
 
 

@@ -1,10 +1,11 @@
-# icar::WorkgroupList
+# icar::Link
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**name** | **character** | The name of the link | 
+**url** | **character** | The url of the link | 
 
 

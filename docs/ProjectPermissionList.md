@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::ProjectPermissionList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[ProjectPermission]**](ProjectPermission.md) |  | 
 
 

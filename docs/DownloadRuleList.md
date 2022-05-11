@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::DownloadRuleList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[DownloadRule]**](DownloadRule.md) |  | 
 
 

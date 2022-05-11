@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::Token
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**token** | **character** |  | [optional] 
 
 

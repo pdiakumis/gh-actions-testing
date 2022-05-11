@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::InputParameterList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[InputParameter]**](InputParameter.md) |  | 
 
 

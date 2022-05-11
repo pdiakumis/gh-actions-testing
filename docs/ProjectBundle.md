@@ -1,10 +1,11 @@
-# icar::WorkgroupList
+# icar::ProjectBundle
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**bundle** | [**Bundle**](Bundle.md) |  | 
+**projectId** | **character** |  | 
 
 

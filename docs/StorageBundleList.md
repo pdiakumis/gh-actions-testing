@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::StorageBundleList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[StorageBundle]**](StorageBundle.md) |  | 
 
 

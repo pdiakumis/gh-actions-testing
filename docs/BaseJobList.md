@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::BaseJobList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[BaseJob]**](BaseJob.md) |  | 
 
 

@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::FieldList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[Field]**](Field.md) |  | 
 
 

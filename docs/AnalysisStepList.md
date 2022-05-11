@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::AnalysisStepList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[AnalysisStep]**](AnalysisStep.md) |  | 
 
 

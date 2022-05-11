@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::RegionList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[Region]**](Region.md) |  | 
 
 

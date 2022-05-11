@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::ReferenceSetList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[ReferenceSet]**](ReferenceSet.md) |  | 
 
 

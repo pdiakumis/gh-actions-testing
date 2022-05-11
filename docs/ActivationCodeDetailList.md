@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::ActivationCodeDetailList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[ActivationCodeDetail]**](ActivationCodeDetail.md) |  | 
 
 

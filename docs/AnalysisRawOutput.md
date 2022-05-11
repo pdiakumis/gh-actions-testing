@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::AnalysisRawOutput
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**rawOutput** | **character** | The raw output of the analysis. | 
 
 

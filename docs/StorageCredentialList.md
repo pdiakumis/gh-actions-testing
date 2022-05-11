@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::StorageCredentialList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[StorageCredential]**](StorageCredential.md) |  | 
 
 

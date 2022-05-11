@@ -1,10 +1,10 @@
-# icar::WorkgroupList
+# icar::BundleToolsList
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**array[Workgroup]**](Workgroup.md) |  | 
+**items** | [**array[BundleTool]**](BundleTool.md) |  | 
 
 
