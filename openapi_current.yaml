@@ -246,10 +246,10 @@ paths:
           \ (abc.txt and ABC.txt)."
         schema:
           type: string
+          default: STARTS_WITH_CASE_INSENSITIVE
           enum:
           - STARTS_WITH_CASE_INSENSITIVE
           - FULL_CASE_INSENSITIVE
-          default: STARTS_WITH_CASE_INSENSITIVE
       - name: status
         in: query
         description: The statuses to filter on.
@@ -2299,7 +2299,7 @@ paths:
       tags:
       - Project Analysis
       summary: Retrieve the raw output of an analysis.
-      operationId: h_getExecutionOutputObject
+      operationId: getRawAnalysisOutput
       parameters:
       - name: projectId
         in: path
@@ -2396,6 +2396,27 @@ paths:
       summary: Create and start an analysis for a CWL pipeline.
       operationId: createCwlAnalysis
       parameters:
+      - name: Idempotency-Key
+        in: header
+        description: "The Idempotency-Key header can be used to prevent duplicate\
+          \ requests and support retries. It is implemented according to <a href=\"\
+          https://tools.ietf.org/id/draft-idempotency-header-01.html\">the IETF spec</a>\
+          \ and is allowed to be max 255 characters long. If the header is supplied,\
+          \ the response of the request will be saved for 7 days for the specific\
+          \ API endpoint, header value and user reference. When the same user makes\
+          \ a new request within 7 days to the same API endpoint with the same Idempotency-Key\
+          \ header value, following use cases can occur:<br /><ul><li>the request\
+          \ body is the same as the previous request and an answer is stored => the\
+          \ stored response is returned without executing the request again.</li><li>the\
+          \ request body is the same as the previous request and no answer is stored\
+          \ because the previous request has not finished => 409 error response.</li><li>the\
+          \ request body is not the same as the previous request => 422 error response.</li></ul>This\
+          \ means that each time when executing an API request using the Idempotency-Key\
+          \ header, the request has to contain a new value that hasn't been used in\
+          \ the past 7 days for that specific API and by the specific user."
+        schema:
+          maxLength: 255
+          type: string
       - name: projectId
         in: path
         required: true
@@ -2426,6 +2447,27 @@ paths:
       summary: Create and start an analysis for a Nextflow pipeline.
       operationId: createNextflowAnalysis
       parameters:
+      - name: Idempotency-Key
+        in: header
+        description: "The Idempotency-Key header can be used to prevent duplicate\
+          \ requests and support retries. It is implemented according to <a href=\"\
+          https://tools.ietf.org/id/draft-idempotency-header-01.html\">the IETF spec</a>\
+          \ and is allowed to be max 255 characters long. If the header is supplied,\
+          \ the response of the request will be saved for 7 days for the specific\
+          \ API endpoint, header value and user reference. When the same user makes\
+          \ a new request within 7 days to the same API endpoint with the same Idempotency-Key\
+          \ header value, following use cases can occur:<br /><ul><li>the request\
+          \ body is the same as the previous request and an answer is stored => the\
+          \ stored response is returned without executing the request again.</li><li>the\
+          \ request body is the same as the previous request and no answer is stored\
+          \ because the previous request has not finished => 409 error response.</li><li>the\
+          \ request body is not the same as the previous request => 422 error response.</li></ul>This\
+          \ means that each time when executing an API request using the Idempotency-Key\
+          \ header, the request has to contain a new value that hasn't been used in\
+          \ the past 7 days for that specific API and by the specific user."
+        schema:
+          maxLength: 255
+          type: string
       - name: projectId
         in: path
         required: true
@@ -3188,10 +3230,10 @@ paths:
           \ (abc.txt and ABC.txt)."
         schema:
           type: string
+          default: STARTS_WITH_CASE_INSENSITIVE
           enum:
           - STARTS_WITH_CASE_INSENSITIVE
           - FULL_CASE_INSENSITIVE
-          default: STARTS_WITH_CASE_INSENSITIVE
       - name: status
         in: query
         description: The statuses to filter on.
@@ -3508,10 +3550,10 @@ paths:
           \ (abc.txt and ABC.txt)."
         schema:
           type: string
+          default: STARTS_WITH_CASE_INSENSITIVE
           enum:
           - STARTS_WITH_CASE_INSENSITIVE
           - FULL_CASE_INSENSITIVE
-          default: STARTS_WITH_CASE_INSENSITIVE
       - name: status
         in: query
         description: The statuses to filter on.
@@ -5673,10 +5715,10 @@ paths:
           \ (abc.txt and ABC.txt)."
         schema:
           type: string
+          default: STARTS_WITH_CASE_INSENSITIVE
           enum:
           - STARTS_WITH_CASE_INSENSITIVE
           - FULL_CASE_INSENSITIVE
-          default: STARTS_WITH_CASE_INSENSITIVE
       - name: status
         in: query
         description: The statuses to filter on.
@@ -7426,6 +7468,9 @@ components:
         owningProjectId:
           type: string
           format: uuid
+        owningProjectName:
+          type: string
+          nullable: true
         name:
           type: string
           description: The name of the file/folder as it was uploaded.
@@ -9462,6 +9507,7 @@ components:
     AnalysisStep:
       required:
       - id
+      - logs
       - name
       - status
       - technical
@@ -9499,6 +9545,8 @@ components:
         technical:
           type: boolean
           description: Indicates which kind of step was executed
+        logs:
+          $ref: '#/components/schemas/AnalysisStepLogs'
     AnalysisStepList:
       required:
       - items
@@ -9508,6 +9556,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AnalysisStep'
+    AnalysisStepLogs:
+      type: object
+      properties:
+        stdOutData:
+          $ref: '#/components/schemas/Data'
+        stdOutStream:
+          type: string
+          description: A WebSocket URL for reading the standard output log stream.
+            Might be closed by ICA as soon as the analysis step execution has finished.
+          nullable: true
+        stdErrData:
+          $ref: '#/components/schemas/Data'
+        stdErrStream:
+          type: string
+          description: A WebSocket URL for reading the standard error log stream.
+            Might be closed by ICA as soon as the analysis step execution has finished.
+          nullable: true
+      description: "Contains references to the standard output (stdout) and standard\
+        \ error (stderr) log streams of an analysis step. In this object both log\
+        \ streams could be provided in 2 different formats: as a WebSocket stream\
+        \ URL or as an ICA Data reference. The status of the analysis step determines\
+        \ which format is provided: a WebSocket URL during step execution, a Data\
+        \ reference after step execution. Note however that an analysis step might\
+        \ not expose log streams at all, which would result in this object being empty. "
     AnalysisData:
       required:
       - dataId
@@ -10017,10 +10089,10 @@ components:
           type: string
           description: Encoding
           nullable: true
+          default: UTF8
           enum:
           - UTF8
           - ISO88591
-          default: UTF8
         forceLoad:
           type: boolean
           description: "When false (default): the data will not be loaded if it was\
@@ -10090,11 +10162,11 @@ components:
           type: string
           description: specifies how to write data in the table.
           nullable: true
+          default: APPENDTOTABLE
           enum:
           - WRITEIFEMPTY
           - APPENDTOTABLE
           - OVERWRITETABLE
-          default: APPENDTOTABLE
     CreateCustomEvent:
       required:
       - code
@@ -11064,10 +11136,6 @@ components:
     InputPart:
       type: object
       properties:
-        bodyAsString:
-          type: string
-        contentTypeFromMessage:
-          type: boolean
         mediaType:
           type: object
           properties:
@@ -11083,6 +11151,10 @@ components:
               type: boolean
             wildcardSubtype:
               type: boolean
+        bodyAsString:
+          type: string
+        contentTypeFromMessage:
+          type: boolean
         headers:
           type: object
           additionalProperties:
@@ -11092,22 +11164,22 @@ components:
     MultipartFormDataInput:
       type: object
       properties:
+        formData:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InputPart'
         formDataMap:
           type: object
           additionalProperties:
             type: array
             items:
               $ref: '#/components/schemas/InputPart'
-        formData:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/InputPart'
-        preamble:
-          type: string
         parts:
           type: array
           items:
             $ref: '#/components/schemas/InputPart'
+        preamble:
+          type: string
     CreateCwlPipeline:
       required:
       - analysisStorageId
