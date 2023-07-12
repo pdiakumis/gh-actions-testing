@@ -1,39 +1,97 @@
-name: Test1
+name: conda-build
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        description: Who to greet
+        options:
+        - monalisa
+        - barbie
+      message:
+        required: true
+      use-emoji:
+        type: boolean
+        description: Include 🎉🤣 emojis
+      environment:
+        type: environment
 
 jobs:
-  dyff:
-    name: yaml dyff
+  greet:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install tools
-        run: |
-          sudo snap install dyff
-          dyff version
-      - name: Download and diff yaml
-        run: |
-          PUBY="https://ica.illumina.com/ica/api/swagger/openapi_public.yaml"
-          TMPY="openapi_tmp.yaml"
-          CURY="openapi_current.yaml"
+    - name: Send greeting
+      run: echo "${{ github.event.inputs.message }} ${{ fromJSON('[\"\", \"🥳\"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
 
-          curl -o ${TMPY} ${PUBY}
-          if dyff between --omit-header --set-exit-code ${TMPY} ${CURY}; then 
-              echo "diff=false" >> $GITHUB_ENV
-          else
-              echo "diff=true" >> $GITHUB_ENV
-          fi
+#env:
+#  atoken: ${{ secrets.ANACONDA_UPLOAD_TOKEN }}
+#  recipe_path: conda/recipe
+#  env_yaml_path: conda/env/yaml
+#  env_lock_path: conda/env/lock
+#  VERSION: '0.0.1' # versioned by bump2version
+#jobs:
+#
+#  condarise-dockerise-document:
+#    name: Conda Docker Docs
+#    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        shell: bash -l {0}
+#    steps:
+#      - name: Code checkout
+#        uses: actions/checkout@v3
+#      - name: Miniconda setup
+#        uses: conda-incubator/setup-miniconda@v2
+#        with:
+#          auto-update-conda: true
+#          add-pip-as-python-dependency: false # conda-lock goes crazy if pip pre-installed
+#          activate-environment: env1
+#          miniforge-variant: Mambaforge
+#          miniforge-version: "latest"
+#          channels: "umccr,conda-forge,bioconda"
+#      - name: 🐍 Conda pkg build and upload
+#        run: |
+#          conda activate
+#          mamba create --name cbuildenv conda-build conda-verify anaconda-client boa
+#          conda activate cbuildenv
+#          conda mambabuild --R 4.1 ${recipe_path} --token ${atoken}
+#      - name: 🔒 Conda lock
+#        run: |
+#          conda activate
+#          mamba create --name lockenv conda-lock pip
+#          conda activate lockenv
+#          conda-lock --file ${env_yaml_path}/cttsor.yaml --platform linux-64
+#          mv conda-lock.yml ${env_lock_path}/conda-lock.yml
+#      - name: 💾 Commit lockfile
+#        run: |
+#          git status
+#          git config --local user.email "actions@github.com"
+#          git config --local user.name "GitHub Actions"
+#          MSG="[bot] Updating conda-lock file (v${VERSION})"
+#          git add .
+#          git commit -m "${MSG}"
+#          git push
+#      - name: ☁️  AWS creds
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#          role-to-assume: arn:aws:iam::843407916570:role/GitHubAction-AssumeRoleWithAction
+#          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+#          aws-region: ap-southeast-2
+#      - name: 🔎 ICA token get
+#        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+#        with:
+#          secret-ids: |
+#            ICA_ACCESS_TOKEN, arn:aws:secretsmanager:ap-southeast-2:843407916570:secret:IcaSecretsPortal-mkCXch
+#      - name: 🌐 Website publish
+#        run: |
+#          conda activate
+#          mamba env create -n pkgdownenv -f ${env_yaml_path}/pkgdown.yaml
+#          conda activate pkgdownenv
+#          Rscript -e "print(packageVersion('cttsor'))"
+#          Rscript -e "pkgdown::build_site()"
+#          ls -la ./docs/
+#          echo "List GDS volumes"
+#          curl -X GET -H "accept: application/json" -H "Authorization: Bearer ${ICA_ACCESS_TOKEN}" --url 'https://aps2.platform.illumina.com/v1/volumes'
 
-          echo "${{ env.diff }}"
-          mv ${TMPY} ${CURY}
-      - name: Commit if changes
-        if: env.diff == 'true'
-        run: |
-          git status
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Update openapi yaml since dyffs detected"
-          git push
