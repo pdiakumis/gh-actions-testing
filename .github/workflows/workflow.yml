@@ -16,9 +16,5 @@ jobs:
         id: repo_lowercase
         run: |
             echo "repo_nm=${{ github.event.repository.name }}" >>${GITHUB_ENV}
-            echo "repo_nm_lc=${repo_nm,,}" >> ${GITHUB_OUTPUT}
-      - name: 🐳 Docker test
-        env:
-          REPO_NAME_LC: ${{ steps.repo_lowercase.outputs.repo_nm_lc }}
-        run: |
-            echo "The lowercase repo is: ${REPO_NAME_LC}"
+            echo "repo_nm_lc=${repo_nm,,}" >> ${GITHUB_ENV}
+            echo "The lowercase repo is: ${repo_nm_lc}"
