@@ -1,98 +1,17 @@
-name: conda-build
+name: test1
 
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        type: choice
-        description: Who to greet
-        options:
-        - monalisa
-        - barbie
-      message:
-        required: true
-      use-emoji:
-        type: boolean
-        description: Include 🎉🤣 emojis
-      environment:
-        type: environment
+  workflow_dispatch
 
 jobs:
-  greet:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Send greeting
-      run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
-
-
-#env:
-#  atoken: ${{ secrets.ANACONDA_UPLOAD_TOKEN }}
-#  recipe_path: conda/recipe
-#  env_yaml_path: conda/env/yaml
-#  env_lock_path: conda/env/lock
-#  VERSION: '0.0.1' # versioned by bump2version
-#jobs:
-#
-#  condarise-dockerise-document:
-#    name: Conda Docker Docs
-#    runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        shell: bash -l {0}
-#    steps:
-#      - name: Code checkout
-#        uses: actions/checkout@v3
-#      - name: Miniconda setup
-#        uses: conda-incubator/setup-miniconda@v2
-#        with:
-#          auto-update-conda: true
-#          add-pip-as-python-dependency: false # conda-lock goes crazy if pip pre-installed
-#          activate-environment: env1
-#          miniforge-variant: Mambaforge
-#          miniforge-version: "latest"
-#          channels: "umccr,conda-forge,bioconda"
-#      - name: 🐍 Conda pkg build and upload
-#        run: |
-#          conda activate
-#          mamba create --name cbuildenv conda-build conda-verify anaconda-client boa
-#          conda activate cbuildenv
-#          conda mambabuild --R 4.1 ${recipe_path} --token ${atoken}
-#      - name: 🔒 Conda lock
-#        run: |
-#          conda activate
-#          mamba create --name lockenv conda-lock pip
-#          conda activate lockenv
-#          conda-lock --file ${env_yaml_path}/cttsor.yaml --platform linux-64
-#          mv conda-lock.yml ${env_lock_path}/conda-lock.yml
-#      - name: 💾 Commit lockfile
-#        run: |
-#          git status
-#          git config --local user.email "actions@github.com"
-#          git config --local user.name "GitHub Actions"
-#          MSG="[bot] Updating conda-lock file (v${VERSION})"
-#          git add .
-#          git commit -m "${MSG}"
-#          git push
-#      - name: ☁️  AWS creds
-#        uses: aws-actions/configure-aws-credentials@v2
-#        with:
-#          role-to-assume: arn:aws:iam::843407916570:role/GitHubAction-AssumeRoleWithAction
-#          role-session-name: GitHub_to_AWS_via_FederatedOIDC
-#          aws-region: ap-southeast-2
-#      - name: 🔎 ICA token get
-#        uses: aws-actions/aws-secretsmanager-get-secrets@v1
-#        with:
-#          secret-ids: |
-#            ICA_ACCESS_TOKEN, arn:aws:secretsmanager:ap-southeast-2:843407916570:secret:IcaSecretsPortal-mkCXch
-#      - name: 🌐 Website publish
-#        run: |
-#          conda activate
-#          mamba env create -n pkgdownenv -f ${env_yaml_path}/pkgdown.yaml
-#          conda activate pkgdownenv
-#          Rscript -e "print(packageVersion('cttsor'))"
-#          Rscript -e "pkgdown::build_site()"
-#          ls -la ./docs/
-#          echo "List GDS volumes"
-#          curl -X GET -H "accept: application/json" -H "Authorization: Bearer ${ICA_ACCESS_TOKEN}" --url 'https://aps2.platform.illumina.com/v1/volumes'
-
+  test1:
+    - name: 🐣 Lowercase repo
+      id: repo_lowercase
+      run: |
+          echo "repo_nm=${{ github.event.repository.name }}" >>${GITHUB_ENV}
+          echo "repo_nm_lc=${repo_nm,,}" >> ${GITHUB_OUTPUT}
+      - name: 🐳 Docker test
+        env:
+          REPO_NAME_LC: ${{ steps.repo_lowercase.outputs.repo_nm_lc }}
+        run: |
+          echo "The lowercase repo is: ${REPO_NAME_LC}"
