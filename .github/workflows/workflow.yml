@@ -13,8 +13,11 @@ jobs:
 
     steps:
       - name: 🐣 Lowercase repo
-        id: repo_lowercase
+        env:
+          REPO_NM: ${{ github.event.repository.name }}
         run: |
-            echo "repo_nm=${{ github.event.repository.name }}" >>${GITHUB_ENV}
-            echo "repo_nm_lc=${{ env.repo_nm,, }}" >> ${GITHUB_ENV}
-            echo "The lowercase repo is: ${{ env.repo_nm_lc }}"
+            echo "repo_nm: ${REPO_NM}"
+            echo "REPO_NM_LC=${REPO_NM,,}" >> ${GITHUB_ENV}
+      - name: get lowercase
+        run: |
+            echo "The lowercase repo is: ${{ env.REPO_NM_LC }}"
